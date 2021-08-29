@@ -40,6 +40,6 @@
         android:label="RegisterFragment" />
     <fragment
         android:id="@+id/forgetFragment"
-        android:name="com.mine.mvvmmitch.auth.ui.ForgetFragment"
+        android:name="com.mine.mvvmmitch.auth.ui.ForgotPasswordFragment"
         android:label="ForgetFragment" />
 </navigation>

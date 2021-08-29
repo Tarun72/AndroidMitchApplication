@@ -4,7 +4,11 @@ import com.mine.mvvmmitch.auth.OpenApiAuthService
 import com.mine.mvvmmitch.openapi.persistance.AccountPersistenceDao
 import com.mine.mvvmmitch.openapi.persistance.AuthTokenDao
 import com.mine.mvvmmitch.session.SessionManager
+import javax.inject.Inject
 
-class AuthRepository(authTokenDao: AuthTokenDao,openApiAuthService: OpenApiAuthService,
-                     sessionManager: SessionManager, accountPersistenceDao: AccountPersistenceDao) {
+class AuthRepository
+@Inject constructor(authTokenDao: AuthTokenDao,
+                    openApiAuthService: OpenApiAuthService,
+                    sessionManager: SessionManager,
+                    accountPersistenceDao: AccountPersistenceDao) {
 }
