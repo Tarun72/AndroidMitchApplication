@@ -5,14 +5,21 @@ import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
 import com.bumptech.glide.request.RequestOptions
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.mine.mvvmmitch.R
 import com.mine.mvvmmitch.openapi.persistance.AccountPersistenceDao
 import com.mine.mvvmmitch.openapi.persistance.AppDatabase
 import com.mine.mvvmmitch.openapi.persistance.AppDatabase.Companion.DATABASE_NAME
 import com.mine.mvvmmitch.openapi.persistance.AuthTokenDao
+import com.mine.mvvmmitch.utill.Constants
+import com.mine.mvvmmitch.utill.LiveDataCallAdapterFactory
 import dagger.Module
 import dagger.Provides
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
+
 /**
  *  It defines a configuration point for your object graph(or application object we require),
  *  where you declare which objects you want to be available for injection and their scopes.
@@ -25,13 +32,28 @@ import javax.inject.Singleton
  * */
 
 @Module
-class AppModule{
-/**
- * For these cases where @Inject is insufficient or awkward,
- * use an @Provides-annotated method to satisfy a dependency.
- * The method’s return type defines which dependency it satisfies.
- *
- * */
+class AppModule {
+    /**
+     * For these cases where @Inject is insufficient or awkward,
+     * use an @Provides-annotated method to satisfy a dependency.
+     * The method’s return type defines which dependency it satisfies.
+     *
+     * */
+    @Singleton
+    @Provides
+    fun provideGsonBuilder(): Gson {
+        return GsonBuilder().excludeFieldsWithoutExposeAnnotation().create()
+    }
+
+    @Singleton
+    @Provides
+    fun provideRetrofitBuilder(gsonBuilder: Gson): Retrofit.Builder {
+        return Retrofit.Builder()
+            .baseUrl(Constants.BASE_URL)
+            .addCallAdapterFactory(LiveDataCallAdapterFactory())
+            .addConverterFactory(GsonConverterFactory.create(gsonBuilder))
+    }
+
     @Singleton // single instance of Object
     @Provides
     fun provideAppDb(app: Application): AppDatabase {
@@ -63,7 +85,10 @@ class AppModule{
 
     @Singleton
     @Provides
-    fun provideGlideInstance(application: Application, requestOptions: RequestOptions): RequestManager {
+    fun provideGlideInstance(
+        application: Application,
+        requestOptions: RequestOptions
+    ): RequestManager {
         return Glide.with(application)
             .setDefaultRequestOptions(requestOptions)
     }
