@@ -2,9 +2,10 @@ package com.mine.mvvmmitch.auth
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.mine.mvvmmitch.BaseActivity
 import com.mine.mvvmmitch.R
 
-class AuthActivity : AppCompatActivity(){
+class AuthActivity : BaseActivity(){
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

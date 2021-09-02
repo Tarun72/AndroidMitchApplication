@@ -10,7 +10,7 @@ import java.lang.Exception
 import javax.inject.Inject
 
 abstract class BaseAuthFragment : DaggerFragment() {
-      val TAG = "BaseAuthFragment"
+    val TAG = "BaseAuthFragment"
     @Inject
     lateinit var viewProvideFactoryModule: ViewModelProviderFactory
     lateinit var viewModel:AuthViewModel

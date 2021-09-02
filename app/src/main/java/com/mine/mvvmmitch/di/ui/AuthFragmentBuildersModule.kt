@@ -11,10 +11,12 @@ import dagger.android.ContributesAndroidInjector
 // it provide objects to object graph
 abstract class AuthFragmentBuildersModule {
 
-    @ContributesAndroidInjector()
+
     //This annotation must be applied to an abstract method in a Module that returns a concrete Android framework type
     // (e.g. FooActivity, BarFragment, MyService, etc).
     // The method should have no parameters.
+
+    @ContributesAndroidInjector()
     abstract fun contributeLauncherFragment(): LauncherFragment
 
     @ContributesAndroidInjector()

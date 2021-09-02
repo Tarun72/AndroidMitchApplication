@@ -1,7 +1,7 @@
 package com.mine.mvvmmitch.di.ui.auth
 
 
-import com.mine.mvvmmitch.auth.OpenApiAuthService
+import com.mine.mvvmmitch.auth.api.OpenApiAuthService
 import com.mine.mvvmmitch.openapi.persistance.AccountPersistenceDao
 import com.mine.mvvmmitch.openapi.persistance.AuthTokenDao
 import com.mine.mvvmmitch.respository.auth.AuthRepository
@@ -13,12 +13,10 @@ import retrofit2.Retrofit
 @Module
 class AuthModule {
 
-    // TEMPORARY
     @AuthScope
     @Provides
-    fun provideFakeApiService(): OpenApiAuthService {
-        return Retrofit.Builder()
-            .baseUrl("https://open-api.xyz")
+    fun provideFakeApiService(retrofitBuilder: Retrofit.Builder): OpenApiAuthService {
+        return retrofitBuilder
             .build()
             .create(OpenApiAuthService::class.java)
     }
