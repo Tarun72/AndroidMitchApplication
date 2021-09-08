@@ -22,4 +22,8 @@ class ForgotPasswordFragment : BaseAuthFragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "ForgotPasswordFragment: ${viewModel}")
     }
+
+    override fun subscribeObserver() {
+        TODO("Not yet implemented")
+    }
 }

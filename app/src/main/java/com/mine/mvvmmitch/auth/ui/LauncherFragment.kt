@@ -36,6 +36,10 @@ class LauncherFragment : BaseAuthFragment() {
         }
     }
 
+    override fun subscribeObserver() {
+        TODO("Not yet implemented")
+    }
+
     private fun navForgotPassword() {
         findNavController().navigate(R.id.action_launcherFragment_to_forgetFragment)
 

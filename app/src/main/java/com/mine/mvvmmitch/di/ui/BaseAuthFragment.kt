@@ -20,5 +20,8 @@ abstract class BaseAuthFragment : DaggerFragment() {
         viewModel =  activity?.run {
             ViewModelProvider(this,viewProvideFactoryModule).get(AuthViewModel::class.java)
         }?:throw Exception("Invalid activity")
+
     }
+
+    abstract fun subscribeObserver();
 }
