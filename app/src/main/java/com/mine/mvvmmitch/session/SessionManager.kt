@@ -24,6 +24,7 @@ class SessionManager
 @Inject
 constructor(val authTokenDao: AuthTokenDao,
             val application: Application) {
+
     private val _cachedToken = MutableLiveData<AuthToken>()
     private val TAG: String = "SessionManager"
 

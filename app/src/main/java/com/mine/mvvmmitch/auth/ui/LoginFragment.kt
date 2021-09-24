@@ -9,12 +9,15 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.mine.mvvmmitch.R
 import com.mine.mvvmmitch.di.ui.BaseAuthFragment
+import com.mine.mvvmmitch.di.ui.auth.state.AuthStateEvent
 import com.mine.mvvmmitch.di.ui.auth.state.LoginFields
+import com.mine.mvvmmitch.models.AuthToken
 import com.mine.mvvmmitch.utill.ApiEmptyResponse
 import com.mine.mvvmmitch.utill.ApiErrorResponse
 import com.mine.mvvmmitch.utill.ApiSuccessResponse
 import com.mine.mvvmmitch.utill.GenericApiResponse
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlin.math.log
 
 
 class LoginFragment : BaseAuthFragment() {
@@ -43,10 +46,22 @@ class LoginFragment : BaseAuthFragment() {
                     is ApiSuccessResponse -> {
                         Log.d(TAG, "ApiSuccessResponse: ${response.body} ")
                     }
-                }
+                 }
         }
         })*/
+        login_button.setOnClickListener {
+            login()
+        }
         subscribeObserver()
+    }
+
+    fun login() {
+        viewModel.setStateEvent(
+            AuthStateEvent.LoginAttemptEvent(
+                email = input_email.text.toString(),
+                password = input_password.text.toString()
+            )
+        )
     }
 
     override fun subscribeObserver() {

@@ -8,7 +8,7 @@ data class AuthViewState(
     var authToken: AuthToken? = null
 )
 
-data class RegistrationFields(
+data class RegistrationFields   (
     var registrationEmail: String? = null,
     var registrationUserName: String? = null,
     var registrationPassword: String? = null,

@@ -13,6 +13,8 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+// single gradle for all shared dependencies
+apply from : "Dependency.gradle"
 
 task clean(type: Delete) {
     delete rootProject.buildDir

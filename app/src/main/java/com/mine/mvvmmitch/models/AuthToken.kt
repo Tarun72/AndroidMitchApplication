@@ -26,7 +26,7 @@ import com.google.gson.annotations.SerializedName
         )
     ]
 )
-data class AuthToken(
+ data class AuthToken(
 
     @PrimaryKey
     @ColumnInfo(name = "account_pk")

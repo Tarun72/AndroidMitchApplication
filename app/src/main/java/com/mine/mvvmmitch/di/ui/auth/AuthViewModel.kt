@@ -1,6 +1,6 @@
 package com.mine.mvvmmitch.di.ui.auth
+
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import com.mine.mvvmmitch.auth.network_response.LoginResponse
 import com.mine.mvvmmitch.auth.network_response.RegistrationResponse
 import com.mine.mvvmmitch.di.ui.auth.state.AuthStateEvent
@@ -17,16 +17,18 @@ class AuthViewModel
 @Inject
 constructor(
     val authRepository: AuthRepository
-): BaseViewModel<AuthStateEvent, AuthViewState>() {
+) : BaseViewModel<AuthStateEvent, AuthViewState>() {
 
 
     fun testLogin(): LiveData<GenericApiResponse<LoginResponse>> {
-        return authRepository.testLogin("tarunshrm395@gmail.com","123456789")
+        return authRepository.testLogin("tarunshrm395@gmail.com", "123456789")
     }
 
     fun testRegister(): LiveData<GenericApiResponse<RegistrationResponse>> {
-        return authRepository.testRegister("tarunshrm395@gmail.com",
-        username = "tarun719",password = "123456789",password2 = "123456789")
+        return authRepository.testRegister(
+            "tarunshrm395@gmail.com",
+            username = "tarun719", password = "123456789", password2 = "123456789"
+        )
     }
 
     override fun initNewViewState(): AuthViewState {
@@ -34,22 +36,30 @@ constructor(
     }
 
     override fun handleStateEvent(stateEvent: AuthStateEvent): LiveData<DataState<AuthViewState>> {
-        when(stateEvent){
-            is AuthStateEvent.LoginAttemptEvent ->{
-                return AbsentLiveData.create()
+        when (stateEvent) {
+            is AuthStateEvent.LoginAttemptEvent -> {
+                return authRepository.attemptLogin(
+                    stateEvent.email,
+                    stateEvent.password
+                )
             }
-            is AuthStateEvent.RegistrationAttemptEvent ->{
-                return AbsentLiveData.create()
+            is AuthStateEvent.RegistrationAttemptEvent -> {
+                return authRepository.attemptRegistration(
+                    stateEvent.email,
+                    username = stateEvent.username,
+                    password = stateEvent.password,
+                    confirmPassword = stateEvent.confirmPassword
+                )
             }
-            is AuthStateEvent.CheckPreviousAuthEvent->{
+            is AuthStateEvent.CheckPreviousAuthEvent -> {
                 return AbsentLiveData.create()
             }
         }
     }
 
-    fun setRegistrationFields(registrationFields: RegistrationFields){
-        val updateViewState =  initNewViewState()
-        if(updateViewState.registrationFields == registrationFields){
+    fun setRegistrationFields(registrationFields: RegistrationFields) {
+        val updateViewState = initNewViewState()
+        if (updateViewState.registrationFields == registrationFields) {
             return
         }
         updateViewState.registrationFields = registrationFields
@@ -57,9 +67,9 @@ constructor(
     }
 
 
-    fun setLoginFields(loginFields: LoginFields){
-        val updateViewState =  initNewViewState()
-        if(updateViewState.loginFields == loginFields){
+    fun setLoginFields(loginFields: LoginFields) {
+        val updateViewState = initNewViewState()
+        if (updateViewState.loginFields == loginFields) {
             return
         }
         updateViewState.loginFields = loginFields
@@ -67,9 +77,9 @@ constructor(
     }
 
 
-    fun setCheckAuthToken(authToken: AuthToken){
-        val updateViewState =  initNewViewState()
-        if(updateViewState.authToken == authToken){
+    fun setCheckAuthToken(authToken: AuthToken) {
+        val updateViewState = initNewViewState()
+        if (updateViewState.authToken == authToken) {
             return
         }
         updateViewState.authToken = authToken
